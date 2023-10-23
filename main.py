@@ -4,17 +4,15 @@ from starlette.responses import JSONResponse
 
 app = FastAPI()
 
-@app.get("/extract-info")
+@app.get("/")
 async def extract_info(request: Request):
+
     referer = request.headers.get("Referer")
     
-    user_agent = request.headers.get("User-Agent")
-    
+    agent = request.headers.get("User-Agent")
     
     from user_agents import parse
-
-    
-    user_agent_info = parse(user_agent)
+    user_agent_info = parse(agent)
     browser = user_agent_info.browser.family
     device = user_agent_info.device.family
 
